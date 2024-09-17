@@ -1,8 +1,10 @@
 package lexer
 
 import (
-  "testing"
-  "github.com/1nsomnes/CustomInterpreter/token"
+	"fmt"
+	"testing"
+
+	"github.com/1nsomnes/CustomInterpreter/token"
 )
 
 func TestNextToken(t *testing.T) {
@@ -45,6 +47,12 @@ func TestNextTokenComprehensive(t *testing.T) {
   x + y;
   };
   let result = add(five, ten);
+  !-/*<>
+  if (5 == 10) {
+    return false;
+  } else if {
+    return true;
+  }
   `
 
   tests := []struct {
@@ -87,6 +95,30 @@ func TestNextTokenComprehensive(t *testing.T) {
     {token.IDENT, "ten"},
     {token.RPAREN, ")"},
     {token.SEMICOLON, ";"},
+    {token.BANG, "!"}, 
+    {token.MINUS , "-"},
+    {token.SLASH , "/"},
+    {token.ASTERISK , "*"},
+    {token.LT , "<"},
+    {token.GT , ">"},
+    {token.IF, "if"},
+    {token.LPAREN , "("},
+    {token.INT , "5"},
+    {token.EQ , "=="},
+    {token.INT , "10"},
+    {token.RPAREN , ")"},
+    {token.LBRACE , "{"},
+    {token.RETURN , "return"},
+    {token.FALSE , "false"},
+    {token.SEMICOLON , ";"},
+    {token.RBRACE , "}"},
+    {token.ELSE , "else"},
+    {token.IF , "if"},
+    {token.LBRACE , "{"},
+    {token.RETURN , "return"},
+    {token.TRUE , "true"},
+    {token.SEMICOLON , ";"},
+    {token.RBRACE , "}"},
     {token.EOF, ""},
   }
   
